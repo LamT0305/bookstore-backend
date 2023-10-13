@@ -17,17 +17,21 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="7.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Data\" />
     <None Remove="IServices\" />
     <None Remove="Services\" />
     <None Remove="Dtos\" />
+    <None Remove="Hubs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="IServices\" />
     <Folder Include="Services\" />
     <Folder Include="Dtos\" />
+    <Folder Include="Hubs\" />
   </ItemGroup>
 </Project>

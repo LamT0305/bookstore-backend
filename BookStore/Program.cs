@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
+using BookStore.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,11 +37,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddSignalR();
+
+
+
 var app = builder.Build();
 
 //Use CORS
 app.UseCors(builder => builder
-    .WithOrigins("https://localhost:7105") // Replace with your allowed origins
+    .WithOrigins("https://localhost:3000") // Replace with your allowed origins
     .AllowAnyHeader()
     .AllowAnyMethod());
 
@@ -64,6 +69,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
 
