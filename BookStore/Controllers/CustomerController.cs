@@ -7,6 +7,7 @@ using BookStore.IServices;
 using BookStore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using BookStore.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,8 +63,9 @@ namespace BookStore.Controllers
                     return BadRequest("Error: Invalid input fields");
                 }
 
-                await _customerSerive.AddToCart(customerId, bookId, quantity);
-                return Ok("Added item to cart successfully!");
+                CartDto addproduct = await _customerSerive.AddToCart(customerId, bookId, quantity);
+                
+                return Ok(addproduct);
             }
             catch(Exception e)
             {
@@ -149,6 +151,20 @@ namespace BookStore.Controllers
                 return Ok(orders);
             }
             catch(Exception e)
+            {
+                return BadRequest($"Error: {e}");
+            }
+        }
+        [HttpPut("update-customer-info"), Authorize(Roles = "User")]
+        public async Task<IActionResult> UpdateCustomerInfo(CustomerDto customerDto)
+        {
+            try
+            {
+                string token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last()!;
+                string customerId = _customerSerive.GetIdByToken(token);
+                await _customerSerive.UpdateCustomer(customerDto, customerId);
+                return Ok("Updated user successfully!");
+            }catch(Exception e)
             {
                 return BadRequest($"Error: {e}");
             }

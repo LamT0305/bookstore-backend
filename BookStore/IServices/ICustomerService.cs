@@ -1,17 +1,18 @@
 ﻿using System;
+using BookStore.Dtos;
 using BookStore.Models;
 
 namespace BookStore.IServices
 {
 	public interface ICustomerService
 	{
-        Task UpdateCustomer(Customer aCustomer, string Id);
+        Task UpdateCustomer(CustomerDto aCustomer, string Id);
 
         Task<IEnumerable<Orders>> ViewOrdersHistory(string customerId);
 
         Task<List<CartItems>> ViewCartUser(string CustomerId);
 
-        Task AddToCart(string CustomerId, string BookId, int quantity);
+        Task<CartDto> AddToCart(string CustomerId, string BookId, int quantity);
 
         Task UpdateCartUser(string customerId, string BookId, int quantity);
 

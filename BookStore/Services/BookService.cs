@@ -36,12 +36,7 @@ namespace BookStore.Services
         public async Task CreateBook(Book aBook, IWebHostEnvironment hostingEnvironment)
         {
             //check if the book is existing or not
-            var isExist = await _bookCollection.Find(e => e.Title.Equals(aBook.Title)).ToListAsync();
-            if (isExist != null)
-            {
-                throw new Exception("The book title has already existed!");
-            }
-
+            
             // Check if the 'aBook' object is null
             if (aBook == null)
             {

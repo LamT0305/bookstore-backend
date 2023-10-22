@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using MongoDB.Bson;
+using BookStore.Dtos;
 
 namespace BookStore.Services
 {
@@ -34,7 +35,7 @@ namespace BookStore.Services
         }
 
         //done
-        public async Task AddToCart(string CustomerId, string BookId, int quantity)
+        public async Task<CartDto> AddToCart(string CustomerId, string BookId, int quantity)
         {
             if(string.IsNullOrEmpty(CustomerId) || string.IsNullOrEmpty(BookId) || quantity <= 0)
             {
@@ -57,7 +58,7 @@ namespace BookStore.Services
 
             if(book == null)
             {
-                throw new Exception("Customer not found!");
+                throw new Exception("Book not found!");
 
             }
 
@@ -93,6 +94,7 @@ namespace BookStore.Services
                 item.BookId = book.Id;
                 item.Quantity = quantity;
                 item.Price = book.Price;
+                item.imagePath = book.ImagePath;
                 customer.CartItems.Add(item);
             }
             
@@ -100,6 +102,14 @@ namespace BookStore.Services
             // update CartItems current
 
             await _customerCollection.ReplaceOneAsync(customerFilter, customer);
+            return new CartDto()
+            {
+                id = item.BookId,
+                quantity = item.Quantity,
+                imagePath = item.imagePath,
+                message = "Added book to cart successfully!",
+                price = item.Price
+            };
         }
 
         public async Task CreateOrder(string customerId)
@@ -254,8 +264,12 @@ namespace BookStore.Services
         }
 
         //done
-        public async Task UpdateCustomer(Customer aCustomer, string Id)
+        public async Task UpdateCustomer(CustomerDto aCustomer, string Id)
         {
+            if (aCustomer == null || aCustomer.firstName == null || aCustomer.lastName == null || aCustomer.address == null || aCustomer.phone == null)
+            {
+                throw new Exception("Invalid input");
+            }
             if (string.IsNullOrEmpty(Id))
             {
                 throw new Exception("Invalid ID");
@@ -266,10 +280,10 @@ namespace BookStore.Services
 
             if(customer != null)
             {
-                customer.FirstName = aCustomer.FirstName;
-                customer.LastName = aCustomer.LastName;
-                customer.Address = aCustomer.Address;
-                customer.Phone = aCustomer.Phone;
+                customer.FirstName = aCustomer.firstName;
+                customer.LastName = aCustomer.lastName;
+                customer.Address = aCustomer.address;
+                customer.Phone = aCustomer.phone;
 
                 // replace to new customer
                 await _customerCollection.ReplaceOneAsync(customerFilter, customer);

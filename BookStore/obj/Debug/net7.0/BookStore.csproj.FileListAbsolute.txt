@@ -63,3 +63,9 @@
 /Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/lamba/Projects/BookStore/BookStore/obj/Debug/net7.0/BookStore.MvcApplicationPartsAssemblyInfo.cs
+/Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Microsoft.AspNetCore.Connections.Abstractions.dll
+/Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Microsoft.AspNetCore.SignalR.Common.dll
+/Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Microsoft.Extensions.Features.dll
+/Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Microsoft.Extensions.Options.dll
+/Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/Newtonsoft.Json.dll
+/Users/lamba/Projects/BookStore/BookStore/bin/Debug/net7.0/System.Net.WebSockets.WebSocketProtocol.dll
